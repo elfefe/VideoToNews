@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube transcription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 5px 0;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.12);
+        }
+        .input-container input:focus {
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+        .input-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+        .input-container button:focus {
+            outline: none;
+            background-color: #0056b3;
+        }
+        .result {
+            width: 80%;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Youtube transcription</h2>
+    </header>
+    <main>
+        <div class="input-container">
+            <label for="basicInput">Enter youtube url:</label>
+            <input type="text" id="basicInput" name="basicInput" placeholder="url">
+            <button onclick="handleSend()">Send</button>
+        </div>
+        <div class="result"></div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Félix BOULE--REIFF</p>
+    </footer>
+</body>
+<script>
+    function handleSend() {
+            const inputValue = document.getElementById("basicInput").value;
+            // Perform your HTTP request (replace with your actual logic)
+            sendHttpRequest(inputValue);
+        }
+
+    function sendHttpRequest(value) {
+        // Example: Sending a POST request using fetch API
+        fetch('http://127.0.0.1:5000/transcribe?url=' + value, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ input: value })
+        })
+        .then(response => {
+            return response.text(); // This parses JSON from the response body
+        })
+        .then(data => {
+            // Get the div element
+            const contentDiv = document.getElementsByClassName('result')[0];
+            // Set the HTML content
+            contentDiv.innerHTML = data;
+
+            console.log('Success: ', data);
+            // Handle the response as needed
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Handle errors
+        });
+    }
+</script>
+</html>
