@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youtube transcription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -17,11 +18,17 @@
         }
         main {
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 32px;
         }
         .input-container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
+            gap: 8px;
         }
         .input-container input {
             padding: 10px;
@@ -56,8 +63,10 @@
             background-color: #0056b3;
         }
         .result {
+            padding: 16px;
             width: 80%;
-            background-color: #eee;
+            border: 1px solid #eee;
+            border-radius: 16px;
         }
     </style>
 </head>
@@ -67,8 +76,7 @@
     </header>
     <main>
         <div class="input-container">
-            <label for="basicInput">Enter youtube url:</label>
-            <input type="text" id="basicInput" name="basicInput" placeholder="url">
+            <input type="text" id="basicInput" name="basicInput" placeholder="Enter youtube url">
             <button onclick="handleSend()">Send</button>
         </div>
         <div class="result"></div>
@@ -86,13 +94,7 @@
 
     function sendHttpRequest(value) {
         // Example: Sending a POST request using fetch API
-        fetch('http://127.0.0.1:5000/transcribe?url=' + value, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ input: value })
-        })
+        fetch(window.location.href + 'transcribe?url=' + value)
         .then(response => {
             return response.text(); // This parses JSON from the response body
         })

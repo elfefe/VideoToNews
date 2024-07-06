@@ -16,7 +16,7 @@ def default():
     return send_from_directory(template_dir, "index.html")
 
 
-@app.route("/transcribe")
+@app.route("/transcribe", methods=['POST', 'GET'])
 def transcribe():
     url = request.args.get('url')
     if url:
