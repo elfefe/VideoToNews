@@ -10,10 +10,10 @@ app = Flask(__name__)
 template_dir = abspath('resources/templates')
 
 
-@app.route('/<path:filename>')
-def serve_static(filename):
+@app.route('/')
+def default():
     # Use send_file to send the HTML file back as a response
-    return send_from_directory(template_dir, filename)
+    return send_from_directory(template_dir, "index.html")
 
 
 @app.route("/transcribe")
