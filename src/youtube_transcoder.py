@@ -15,6 +15,9 @@ from vertexai.generative_models import GenerativeModel
 
 from env import output_path
 from src.utils import delete_files_from_folder
+from pytube.innertube import _default_clients
+
+_default_clients["ANDROID_MUSIC"] = _default_clients["ANDROID_CREATOR"]
 
 
 def transcoder(name, on_update):
