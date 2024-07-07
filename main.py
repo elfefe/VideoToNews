@@ -1,4 +1,4 @@
-from os.path import abspath
+from os.path import abspath, join
 
 import markdown
 from flask import Flask, send_file, send_from_directory, request
@@ -14,6 +14,10 @@ template_dir = abspath('resources/templates')
 def default():
     # Use send_file to send the HTML file back as a response
     return send_from_directory(template_dir, "index.html")
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(join(template_dir, "images"), 'favicon.ico')
 
 
 @app.route("/transcribe", methods=['POST', 'GET'])

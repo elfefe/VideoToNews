@@ -23,6 +23,8 @@ def transcoder(name, on_update):
     video_output_path = join(output_path, f"{filename}.mp4")
     audio_output_path = join(output_path, f"{filename}.wav")
 
+    resume = None
+
     try:
         # Load the video file
         video = VideoFileClip(video_output_path)
@@ -69,6 +71,9 @@ def transcoder(name, on_update):
         delete_files_from_folder(output_path)
     except Exception as e:
         on_update(f"Error while generating resume:\n{traceback.format_exc()}")
+
+    if not resume:
+        return "Unkown error while generating resume."
 
     return resume
 
